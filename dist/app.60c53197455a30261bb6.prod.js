@@ -1,0 +1,1 @@
+webpackJsonp([5],{5:function(o,n){o.exports={prod:!0}},0:function(o,n,c){const e=c(5);console.dir(e),console.log({"in":"prod"}),c.e(3,function(o){const n=c(7);console.log(n())}),c.e(2,function(o){const n=c(8);console.log(n())}),c.e(1,function(o){const n=c(9);console.log(n())}),e.debug&&c.e(4,function(o){const n=c(6);console.log(n("i'm accessible by runtime config"))})}});

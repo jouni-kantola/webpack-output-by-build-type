@@ -1,5 +1,10 @@
 {
   "dependencies": {
-    "webpack": "^1.13.2"
+    "chunk-manifest-webpack-plugin": "^0.1.0",
+    "is-thirteen": "^2.0.0",
+    "no-op": "^1.0.3",
+    "webpack": "^1.13.2",
+    "webpack-manifest-plugin": "^1.1.0",
+    "webpack-md5-hash": "^0.0.5"
   }
 }

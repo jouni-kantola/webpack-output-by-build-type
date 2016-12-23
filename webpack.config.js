@@ -1,9 +1,10 @@
 const path = require('path');
 
 const webpack = require('webpack');
-const ManifestPlugin = require('webpack-manifest-plugin');
-const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+//const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
+const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 
 const build = process.env.BUILD && process.env.BUILD.trim();
 const isProduction = build === 'production';
@@ -16,16 +17,22 @@ let plugins = [
     PRODUCTION: isProduction
   }),
   new webpack.optimize.CommonsChunkPlugin({
-    name: ["vendor"],
+    name: ['vendor', 'manifest'],
     minChunks: Infinity
   }),
   new WebpackMd5Hash(),
-  new ManifestPlugin(),
-  new ChunkManifestPlugin({
-    filename: "chunk-manifest.json",
-    manifestVariable: "webpackManifest"
+  // new ChunkManifestPlugin({
+  //   filename: "chunk-manifest.json",
+  //   manifestVariable: "webpackManifest"
+  // }),
+  new InlineManifestWebpackPlugin({
+    name: 'webpackManifest'
   }),
-  new webpack.optimize.OccurenceOrderPlugin(true)
+  new webpack.optimize.OccurenceOrderPlugin(true),
+  new HtmlWebpackPlugin({
+    title: 'webpack output by build type',
+    template: './tmpl/index.ejs'
+  })
 ];
 
 if (isProduction) {
@@ -45,6 +52,7 @@ module.exports = {
   },
   output: {
     path: 'dist',
+    //publicPath: '/',
     filename: isProduction ? '[name].[chunkhash].prod.js' : '[name].[chunkhash].dev.js'
   },
   resolveLoader: {

@@ -1,1 +1,0 @@
-webpackJsonp([4],{6:function(o,n){o.exports=function(o){console.log("debug",o)}}});

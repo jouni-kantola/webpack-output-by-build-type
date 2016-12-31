@@ -1,8 +1,11 @@
 # Webpack output by build type
 Bootstrap application's module tree by build type. Included is also an example of a global config to display the difference in output.
 
-## Run development build
-`webpack && node dist\bundle.js`
+## Build
+`npm run build -- --BUILD=(development|production)`
 
-## Run production build
-`set BUILD=production && webpack && node dist\bundle.prod.js`
+### args
+Default builds are done in development mode. If build type `production` is used (`-- --BUILD=production`, note `--` prefix) code will be minified and uglified, including inlined Webpack manifest.
+
+## Run with Webpack dev server
+`npm run serve -- --BUILD=(development|production)`

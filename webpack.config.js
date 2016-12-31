@@ -6,8 +6,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 //const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 
-const build = process.env.BUILD && process.env.BUILD.trim();
-const isProduction = build === 'production';
+const buildType = require('./build-type');
+const isProduction = buildType.PRODUCTION;
 
 let plugins = [
   new webpack.DefinePlugin({
@@ -36,15 +36,14 @@ let plugins = [
 ];
 
 if (isProduction) {
-  plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      output: {
-        comments: false
-      }
-    })
-  );
+  plugins.push(new webpack.optimize.UglifyJsPlugin({
+    // compress: { warnings: false },
+    // minimize: true,
+    // comments: false,
+    // beautify: false
+  }));
 }
-console.log('isProduction', isProduction);
+
 module.exports = {
   entry: {
     'vendor': ['is-thirteen', 'no-op'],

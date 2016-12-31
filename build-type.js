@@ -1,3 +1,7 @@
+function buildArgFilter(arg) {
+    return arg.match(/-+BUILD=/i);
+}
+
 let build = {};
 
 if (!process.argv) {
@@ -5,7 +9,7 @@ if (!process.argv) {
 }
 
 const buildType = process.argv
-                    .filter(arg => arg.indexOf('--BUILD=') > -1 || arg.indexOf('BUILD=') > -1)
+                    .filter(buildArgFilter)
                     .map(arg => arg.split('=')[1]);
 
 if (buildType.length && (buildType[0].toUpperCase() === 'PRODUCTION')) {

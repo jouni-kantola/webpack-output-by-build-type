@@ -9,6 +9,8 @@ const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const buildType = require('./build-type');
 const isProduction = buildType.PRODUCTION;
 
+console.log('Build type:', isProduction ? 'PRODUCTION' : 'DEVELOPMENT');
+
 let plugins = [
   new webpack.DefinePlugin({
     __DEV__: !isProduction,

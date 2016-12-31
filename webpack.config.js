@@ -23,7 +23,6 @@ let plugins = [
   new InlineManifestWebpackPlugin({
     name: 'webpackManifest'
   }),
-  new webpack.optimize.OccurenceOrderPlugin(true),
   new HtmlWebpackPlugin({
     title: 'webpack output by build type',
     template: './tmpl/index.ejs'
@@ -41,8 +40,14 @@ module.exports = {
     'vendor': ['is-thirteen', 'no-op'],
     'app': './src/index.js'
   },
+  resolve: {
+    modules: [
+      path.join(__dirname, 'src'),
+      'node_modules'
+    ]
+  },
   output: {
-    path: 'dist',
+    path: path.join(__dirname, 'dist'),
     //publicPath: '/',
     filename: isProduction ? '[name].[chunkhash].prod.js' : '[name].[chunkhash].dev.js'
   },

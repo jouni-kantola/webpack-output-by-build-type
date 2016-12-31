@@ -11,5 +11,9 @@
     "webpack-dev-server": "^1.16.2",
     "webpack-manifest-plugin": "^1.1.0",
     "webpack-md5-hash": "^0.0.5"
+  },
+  "scripts": {
+    "build": "node_modules/.bin/webpack",
+    "serve": "node_modules/.bin/webpack-dev-server" 
   }
 }

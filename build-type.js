@@ -1,5 +1,5 @@
 function buildArgFilter(arg) {
-    return arg.match(/-+BUILD=/i);
+    return arg.match(/-+env=/i);
 }
 
 let build = {};

@@ -38,7 +38,7 @@ if (isProduction) {
 
 module.exports = {
   entry: {
-    'vendor': ['is-thirteen', 'no-op'],
+    'vendor': ['babel-polyfill', 'is-thirteen', 'no-op'],
     'app': './src/index.js'
   },
   resolve: {

@@ -1,22 +1,21 @@
-const config = require('./config' + (__DEV__ ? '-dev' : ''));
+const config = require('./config' + (__DEV__ ? '-dev' : '')).default;
 
 console.dir(config);
 
 require.ensure([], function (require) {
-    const a = require('./deps/module-a.js');
+    const a = require('./deps/module-a.js').a;
     a();
 });
 
 require.ensure([], function (require) {
-    const b = require('./deps/module-b.js');
+    const b = require('./deps/module-b.js').b;
     b();
 });
 
 require.ensure([], function (require) {
-    const c = require('./deps/module-c.js');
+    const c = require('./deps/module-c.js').c;
     c();
 });
-
 
 if (config.debug) {    
     require.ensure([], function (require) {
@@ -27,7 +26,7 @@ if (config.debug) {
 
 if (__DEV__) {
     require.ensure([], function (require) {
-        const debug = require('./deps/dev-debug.js');
+        const debug = require('./deps/dev-debug.js').debug;
         debug("i'm accessible in dev build");
     }, 'dev-debug');
 }

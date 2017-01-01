@@ -1,9 +1,9 @@
-const c1 = require('./module-c-1');
-const c2 = require('./module-c-2');
+import is from 'is-thirteen';
 
-const is = require('is-thirteen');
+import c1 from './module-c-1';
+import c2 from './module-c-2';
 
-module.exports = function() {
+export const c = () => {
     c1();
     c2();
     console.log('module c says 12 + 1 === 13', is(12 + 1).thirteen());

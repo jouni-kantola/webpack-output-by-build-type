@@ -1,1 +1,1 @@
-module.exports = {prod: true}
+export default { prod: true };

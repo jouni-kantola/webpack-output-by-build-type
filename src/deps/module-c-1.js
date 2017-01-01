@@ -1,3 +1,1 @@
-module.exports = function() {
-    console.log("now in module c's tree");
-}
+export default () => console.log("now in module c's tree");

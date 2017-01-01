@@ -52,13 +52,16 @@ module.exports = {
     filename: isProduction ? '[name].[chunkhash].prod.js' : '[name].[chunkhash].dev.js'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['env']
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['env'],
+            plugins: ["syntax-dynamic-import"]
+          }
         }
       },
       {

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "babel-plugin-dynamic-import-webpack": "^1.0.1",
     "is-thirteen": "^2.0.0",
     "no-op": "^1.0.3"
   },

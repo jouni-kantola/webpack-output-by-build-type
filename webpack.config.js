@@ -3,7 +3,6 @@ const path = require('path');
 const webpack = require('webpack');
 const WebpackMd5Hash = require('webpack-md5-hash');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-//const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 
 const buildType = require('./build-type');
@@ -23,10 +22,6 @@ let plugins = [
     minChunks: Infinity
   }),
   new WebpackMd5Hash(),
-  // new ChunkManifestPlugin({
-  //   filename: "chunk-manifest.json",
-  //   manifestVariable: "webpackManifest"
-  // }),
   new InlineManifestWebpackPlugin({
     name: 'webpackManifest'
   }),
@@ -56,8 +51,18 @@ module.exports = {
     //publicPath: '/',
     filename: isProduction ? '[name].[chunkhash].prod.js' : '[name].[chunkhash].dev.js'
   },
-  resolveLoader: {
-    root: path.join(__dirname, 'node_modules')
+  module: {
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['env']
+        }
+      }
+    ]
   },
+  devtool: 'source-map',
   plugins: plugins
 };

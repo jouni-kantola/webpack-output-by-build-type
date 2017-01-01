@@ -4,7 +4,9 @@
     "no-op": "^1.0.3"
   },
   "devDependencies": {
-    "chunk-manifest-webpack-plugin": "^0.1.0",
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-preset-env": "^1.1.4",
     "html-webpack-plugin": "^2.24.1",
     "inline-manifest-webpack-plugin": "^3.0.1",
     "webpack": "^1.14.0",
@@ -14,6 +16,6 @@
   },
   "scripts": {
     "build": "node_modules/.bin/webpack",
-    "serve": "node_modules/.bin/webpack-dev-server" 
+    "serve": "node_modules/.bin/webpack-dev-server"
   }
 }

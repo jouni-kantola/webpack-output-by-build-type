@@ -34,10 +34,7 @@ let plugins = [
 
 if (isProduction) {
   plugins.push(new webpack.optimize.UglifyJsPlugin({
-    // compress: { warnings: false },
-    // minimize: true,
-    // comments: false,
-    // beautify: false
+    //compress: { warnings: true },
   }));
 }
 

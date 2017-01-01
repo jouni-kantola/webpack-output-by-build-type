@@ -4,31 +4,23 @@ const config = require('./config' + (__DEV__ ? '-dev' : '')).default;
 
 console.dir(config);
 
-require.ensure([], function (require) {
-    const a = require('./deps/module-a.js').a;
-    a();
-});
-
-require.ensure([], function (require) {
-    const b = require('./deps/module-b.js').b;
-    b();
-});
-
-require.ensure([], function (require) {
-    const c = require('./deps/module-c.js').c;
-    c();
-});
-
-if (config.debug) {    
-    require.ensure([], function (require) {
-        const debug = require('./deps/always-debug.js').debug;
+import('./deps/module-a.js').then(module => module());
+import('./deps/module-b.js').then(module => module());
+import('./deps/module-c.js').then(module => module());
+if (config.debug) {
+    import('./deps/always-debug.js').then(module => {
+        const { debug } = module;
         debug('i\'m accessible by runtime config');
-    }, 'always-debug');
+    });
+} else {
+    console.log('no debugging enabled');
 }
 
+// leaving a comment here
 if (__DEV__) {
-    require.ensure([], function (require) {
-        const debug = require('./deps/dev-debug.js').debug;
+    import('./deps/dev-debug.js').then(debug => {
         debug('i\'m accessible in dev build');
-    }, 'dev-debug');
+    });
+} else {
+    console.log("here goes production debugging");
 }

@@ -53,20 +53,25 @@ module.exports = {
     filename: isProduction ? '[name].[chunkhash].prod.js' : '[name].[chunkhash].dev.js'
   },
   module: {
-    preLoaders: [
-      {
-        test: /\.js$/,
-        loader: 'eslint-loader',
-        exclude: /(node_modules)/
-      }
-    ],
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['env']
+        enforce: 'pre',
+        use: {
+          loader: 'eslint-loader'
+        }
+      }
+    ],
+      {
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['env'],
+            plugins: ["syntax-dynamic-import"]
+          }
         }
       },
       {

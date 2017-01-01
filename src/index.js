@@ -16,7 +16,6 @@ if (config.debug) {
     console.log('no debugging enabled');
 }
 
-// leaving a comment here
 if (__DEV__) {
     import('./deps/dev-debug.js').then(debug => {
         debug('i\'m accessible in dev build');

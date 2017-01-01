@@ -33,6 +33,7 @@ let plugins = [
 if (isProduction) {
   plugins.push(new webpack.optimize.UglifyJsPlugin({
     //compress: { warnings: true },
+    sourceMap: true
   }));
 }
 

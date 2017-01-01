@@ -20,7 +20,7 @@ require.ensure([], function (require) {
 
 if (config.debug) {    
     require.ensure([], function (require) {
-        const debug = require('./deps/always-debug.js');
+        const debug = require('./deps/always-debug.js').debug;
         debug("i'm accessible by runtime config");
     }, 'always-debug');
 }

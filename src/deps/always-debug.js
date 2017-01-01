@@ -1,3 +1,1 @@
-module.exports = function(message) {
-    console.log("debug", message);
-}
+export const debug = (message) => console.log("debug", message);

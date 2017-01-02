@@ -13,9 +13,7 @@ console.log('Build type:', isProduction ? 'PRODUCTION' : 'DEVELOPMENT');
 let plugins = [
   new webpack.DefinePlugin({
     __DEV__: !isProduction,
-    globalConfig: !isProduction ? JSON.stringify({ in: 'dev' }) : JSON.stringify({ in: 'prod' }),
-    DEBUG: !isProduction,
-    PRODUCTION: isProduction
+    globalConfig: !isProduction ? JSON.stringify({ in: 'dev' }) : JSON.stringify({ in: 'prod' })
   }),
   new webpack.optimize.CommonsChunkPlugin({
     name: ['vendor', 'manifest'],

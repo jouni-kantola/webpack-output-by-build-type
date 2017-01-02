@@ -1,9 +1,11 @@
 import page from './deps/page';
+import { foo } from './deps/module-tree-shaking.js';
 
 const config = require('./config' + (__DEV__ ? '-dev' : '')).default;
 
 console.dir(config);
 
+// using babel polyfill adds quite a lot of overhead
 async function bootstrap() {
     const { a } = await import('./deps/module-a.js');
     a();
@@ -35,3 +37,6 @@ if (__DEV__) {
 // const bootstrap = require('./app' + (__DEV__ ? '-dev' : '')).bootstrap;
 
 bootstrap();
+
+foo();
+// bar() not imported, and therefor removed in optimization

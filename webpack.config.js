@@ -55,7 +55,11 @@ module.exports = {
         query: {
           presets: ['env']
         }
-      }
+      },
+      {
+        test: /\.less$/,
+        loader: "style-loader!css-loader!less-loader"
+      },
     ]
   },
   devtool: 'source-map',

@@ -1,3 +1,5 @@
+import page from './deps/page';
+
 const config = require('./config' + (__DEV__ ? '-dev' : '')).default;
 
 console.dir(config);

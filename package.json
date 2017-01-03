@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "babel-plugin-dynamic-import-webpack": "^1.0.1",
     "babel-polyfill": "^6.20.0",
     "is-thirteen": "^2.0.0",
     "no-op": "^1.0.3"
@@ -12,6 +11,7 @@
     "babel-loader": "^6.2.10",
     "babel-preset-env": "^1.1.4",
     "css-loader": "^0.26.1",
+    "babel-plugin-dynamic-import-webpack": "^1.0.1",
     "eslint": "^3.13.0",
     "eslint-loader": "^1.6.1",
     "html-webpack-plugin": "^2.24.1",

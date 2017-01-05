@@ -3,7 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const WebpackMd5Hash = require('webpack-md5-hash');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
 const buildType = require('./build-type');
 const isProduction = buildType.PRODUCTION;
@@ -20,13 +20,14 @@ let plugins = [
     minChunks: Infinity
   }),
   new WebpackMd5Hash(),
-  new InlineManifestWebpackPlugin({
-    name: 'webpackManifest'
-  }),
   new webpack.optimize.OccurenceOrderPlugin(true),
   new HtmlWebpackPlugin({
     title: 'webpack output by build type',
     template: './tmpl/index.ejs'
+  }),
+  new ScriptExtHtmlWebpackPlugin({
+    inline: ['manifest'],
+    defaultAttribute: 'defer'
   })
 ];
 

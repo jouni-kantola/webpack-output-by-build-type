@@ -48,6 +48,13 @@ module.exports = {
     filename: isProduction ? '[name].[chunkhash].prod.js' : '[name].[chunkhash].dev.js'
   },
   module: {
+    preLoaders: [
+      {
+        test: /\.js$/,
+        loader: 'eslint-loader',
+        exclude: /(node_modules)/
+      }
+    ],
     loaders: [
       {
         test: /\.js$/,

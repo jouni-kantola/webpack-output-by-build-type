@@ -5,9 +5,12 @@
   },
   "devDependencies": {
     "babel-core": "^6.21.0",
+    "babel-eslint": "^7.1.1",
     "babel-loader": "^6.2.10",
     "babel-preset-env": "^1.1.4",
     "css-loader": "^0.26.1",
+    "eslint": "^3.13.0",
+    "eslint-loader": "^1.6.1",
     "html-webpack-plugin": "^2.24.1",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",

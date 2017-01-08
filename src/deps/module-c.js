@@ -7,4 +7,4 @@ export const c = () => {
     c1();
     c2();
     console.log('module c says 12 + 1 === 13', is(12 + 1).thirteen());
-}
+};

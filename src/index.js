@@ -31,7 +31,7 @@ if (__DEV__) {
         debug('i\'m accessible in dev build');
     });
 } else {
-    console.log("here goes production debugging");
+    console.log('here goes production debugging');
 }
 // an option would be
 // const bootstrap = require('./app' + (__DEV__ ? '-dev' : '')).bootstrap;

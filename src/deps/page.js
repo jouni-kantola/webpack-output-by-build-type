@@ -1,4 +1,4 @@
-import pageStyles from '../styles/page.less';
+import pageStyles from '../styles/page.css';
 
 let content = document.createElement('div');
 content.classList.add('content');

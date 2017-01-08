@@ -19,6 +19,10 @@
             "error",
             "unix"
         ],
+        "eol-last": [
+            "warn",
+            "always"
+        ],
         "quotes": [
             "error",
             "single"

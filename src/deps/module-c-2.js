@@ -1,1 +1,1 @@
-export default () => console.log("another module c's tree");
+export default () => console.log('another module c\'s tree');

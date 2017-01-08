@@ -5,7 +5,7 @@ content.classList.add('content');
 
 let greeting = document.createElement('div');
 greeting.classList.add('greeting');
-greeting.textContent = "Opa!";
+greeting.textContent = 'Opa!';
 content.appendChild(greeting);
 
 document.body.appendChild(content);

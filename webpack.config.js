@@ -1,7 +1,7 @@
 const path = require('path');
 
 const webpack = require('webpack');
-const WebpackMd5Hash = require('webpack-md5-hash');
+const WebpackChunkHash = require('webpack-chunk-hash');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
@@ -19,7 +19,7 @@ let plugins = [
     name: ['vendor', 'manifest'],
     minChunks: Infinity
   }),
-  new WebpackMd5Hash(),
+  new WebpackChunkHash(),
   new webpack.optimize.OccurenceOrderPlugin(true),
   new HtmlWebpackPlugin({
     title: 'webpack output by build type',

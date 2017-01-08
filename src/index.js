@@ -22,13 +22,13 @@ require.ensure([], function (require) {
 if (config.debug) {    
     require.ensure([], function (require) {
         const debug = require('./deps/always-debug.js').debug;
-        debug("i'm accessible by runtime config");
+        debug('i\'m accessible by runtime config');
     }, 'always-debug');
 }
 
 if (__DEV__) {
     require.ensure([], function (require) {
         const debug = require('./deps/dev-debug.js').debug;
-        debug("i'm accessible in dev build");
+        debug('i\'m accessible in dev build');
     }, 'dev-debug');
 }

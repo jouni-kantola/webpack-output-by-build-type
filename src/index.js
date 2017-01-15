@@ -13,7 +13,8 @@ async function bootstrap() {
     const { b } = await import('./deps/module-b.js');
     b();
 
-    const { c } = await import('./deps/module-c.js');
+    // sync require (mixing import/require)
+    const { c } = require('./deps/module-c.js');
     c();
 
     if (config.debug) {

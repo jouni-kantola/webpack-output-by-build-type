@@ -1,8 +1,12 @@
 const path = require('path');
 
 const webpack = require('webpack');
+const WebpackChunkHash = require('webpack-chunk-hash');
+const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const InlineManifestPlugin = require('inline-manifest-webpack-plugin');
+
+const InlineChunkManifestHtmlWebpackPlugin = require('./plugins/inline-chunk-manifest-html-webpack-plugin');
 
 const buildType = require('./build-type');
 const isProduction = buildType.PRODUCTION;
@@ -19,14 +23,14 @@ let plugins = [
     minChunks: Infinity
   }),
   new webpack.HashedModuleIdsPlugin(),
+  new WebpackChunkHash(),
+  new ChunkManifestPlugin(),
   new HtmlWebpackPlugin({
     title: 'webpack output by build type',
     template: './tmpl/index.ejs'
   }),
-  new ScriptExtHtmlWebpackPlugin({
-    inline: ['manifest'],
-    defaultAttribute: 'defer'
-  })
+  new InlineChunkManifestHtmlWebpackPlugin(),
+  new InlineManifestPlugin()
 ];
 
 if (isProduction) {

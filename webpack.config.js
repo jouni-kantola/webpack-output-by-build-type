@@ -6,7 +6,7 @@ const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InlineManifestPlugin = require('inline-manifest-webpack-plugin');
 
-const InlineChunkManifestHtmlWebpackPlugin = require('./plugins/inline-chunk-manifest-html-webpack-plugin');
+const InlineChunkManifestHtmlWebpackPlugin = require('inline-chunk-manifest-html-webpack-plugin');
 
 const buildType = require('./build-type');
 const isProduction = buildType.PRODUCTION;

@@ -30,7 +30,8 @@ let plugins = [
     template: './tmpl/index.ejs'
   }),
   new InlineChunkManifestHtmlWebpackPlugin(),
-  new InlineManifestPlugin()
+  new InlineManifestPlugin(),
+  new webpack.NoEmitOnErrorsPlugin()
 ];
 
 if (isProduction) {

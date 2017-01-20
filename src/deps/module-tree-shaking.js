@@ -3,5 +3,9 @@ export function foo() {
 }
 
 export function bar() {
-    return 'bar';
+    return foo();
+}
+
+export function baz() {
+    return 'baz';
 }

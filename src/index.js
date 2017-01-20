@@ -40,4 +40,5 @@ if (__DEV__) {
 bootstrap();
 
 foo();
-// bar() not imported, and therefor removed in optimization
+//bar() not imported, but used in-module, removed in optimization
+//baz not used, and therefor removed in optimization

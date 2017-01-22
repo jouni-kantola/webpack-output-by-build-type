@@ -12,7 +12,7 @@ class Math {
     }
 }
 
-class TwoNumbers extends Math {
+export class TwoNumbers extends Math {
     constructor(first, second) {
         super();
         this.first = first;
@@ -20,7 +20,7 @@ class TwoNumbers extends Math {
     }
 }
 
-class OneNumber {
+export class OneNumber {
     constructor(a) {
         this.a = a;
     }
@@ -29,7 +29,5 @@ class OneNumber {
         return this.a;
     }
 }
-
-export { OneNumber, TwoNumbers };
 
 export const aNumber = 2;

@@ -18,6 +18,8 @@ async function bootstrap() {
     const { c } = await import('module-c.js');
     c();
 
+    console.log('yeah right');
+
     if (config.debug) {
         const { debug } = await import('always-debug.js');
         debug('i\'m accessible by runtime config');

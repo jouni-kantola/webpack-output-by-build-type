@@ -43,11 +43,13 @@ if (isProduction) {
 module.exports = {
   entry: {
     'vendor': ['babel-polyfill', 'is-thirteen', 'no-op'],
-    'app': './src/index.js'
+    'app': './src/index.js',
+    'another': './src/another-entry.js'
   },
   resolve: {
     modules: [
       path.join(__dirname, 'src'),
+      path.join(__dirname, 'src/deps_1'),
       'node_modules'
     ]
   },
@@ -87,6 +89,7 @@ module.exports = {
       }
     ]
   },
-  devtool: 'source-map',
   plugins: plugins
+  // ,
+  // devtool: 'source-map',
 };

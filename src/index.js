@@ -1,24 +1,25 @@
-import page from './deps/page';
-import { foo } from './deps/module-tree-shaking.js';
+import page from 'page';
+import { foo } from 'module-tree-shaking.js';
 
-const config = require('./config' + (__DEV__ ? '-dev' : '')).default;
-
-console.dir(config);
 
 // using babel polyfill adds quite a lot of overhead
 async function bootstrap() {
-    const { a } = await import('./deps/module-a.js');
+
+    const { a } = await import('module-a.js');
     a();
 
-    const { b } = await import('./deps/module-b.js');
+    const { config } = await import('./config-dev');
+    console.dir(config);
+
+    const { b } = await import('module-b.js');
     b();
 
     // sync require (mixing import/require)
-    const { c } = require('./deps/module-c.js');
+    const { c } = await import('module-c.js');
     c();
 
     if (config.debug) {
-        const { debug } = await import('./deps/always-debug.js');
+        const { debug } = await import('always-debug.js');
         debug('i\'m accessible by runtime config');
     } else {
         console.log('no debugging enabled');
@@ -27,7 +28,7 @@ async function bootstrap() {
 
 // if used in async function, __DEV__ code not removed from output
 if (__DEV__) {
-    import('./deps/dev-debug.js').then(module => {
+    import('dev-debug.js').then(module => {
         const { debug } = module;
         debug('i\'m accessible in dev build');
     });

@@ -87,7 +87,10 @@ module.exports = {
       },
       {
         test: path.join(__dirname, 'src/global'),
-        loader: 'expose-loader?myGlobalWindowObject'
+        use: {
+          loader: 'expose-loader',
+          options: 'myGlobalWindowObject'
+        }
       }
     ]
   },

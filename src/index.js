@@ -1,5 +1,6 @@
 import page from './deps/page';
 import { foo } from './deps/module-tree-shaking.js';
+import myGlobalWindowObject from './global/a-global';
 
 const config = require('./config' + (__DEV__ ? '-dev' : '')).default;
 

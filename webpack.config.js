@@ -84,6 +84,10 @@ module.exports = {
           'css-loader',
           'postcss-loader'
         ]
+      },
+      {
+        test: path.join(__dirname, 'src/global'),
+        loader: 'expose-loader?myGlobalWindowObject'
       }
     ]
   },

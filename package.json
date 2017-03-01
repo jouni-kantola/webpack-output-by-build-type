@@ -16,6 +16,7 @@
     "eslint": "^3.13.0",
     "eslint-loader": "^1.6.1",
     "html-webpack-plugin": "2.26.0",
+    "inline-chunk-manifest-html-webpack-plugin": "^0.1.0",
     "inline-manifest-webpack-plugin": "^3.0.1",
     "less": "^2.7.1",
     "postcss-loader": "^1.2.1",
@@ -23,8 +24,7 @@
     "webpack": "2.2.0",
     "webpack-chunk-hash": "^0.3.0",
     "webpack-dev-server": "^2.2.0-rc.0",
-    "webpack-manifest-plugin": "^1.1.0",
-    "inline-chunk-manifest-html-webpack-plugin": "git://github.com/jouni-kantola/inline-chunk-manifest-html-webpack-plugin.git#v0.0.1"
+    "webpack-manifest-plugin": "^1.1.0"
   },
   "scripts": {
     "build": "node_modules/.bin/webpack",

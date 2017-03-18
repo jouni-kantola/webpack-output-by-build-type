@@ -20,7 +20,7 @@ let plugins = [
     minChunks: Infinity
   }),
   new WebpackChunkHash(),
-  new webpack.optimize.OccurenceOrderPlugin(true),
+  new webpack.optimize.OccurrenceOrderPlugin(true),
   new HtmlWebpackPlugin({
     title: 'webpack output by build type',
     template: './tmpl/index.ejs'

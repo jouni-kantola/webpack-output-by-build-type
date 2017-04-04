@@ -23,11 +23,12 @@ let plugins = [
     minChunks: Infinity
   }),
   new webpack.HashedModuleIdsPlugin(),
-  new WebpackChunkHash(),
   new ChunkManifestPlugin(),
+  new WebpackChunkHash(),
   new HtmlWebpackPlugin({
     title: 'webpack output by build type',
-    template: './tmpl/index.ejs'
+    template: './tmpl/index.ejs',
+    inject: false
   }),
   new InlineChunkManifestHtmlWebpackPlugin(),
   new InlineManifestPlugin()

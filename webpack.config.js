@@ -21,7 +21,9 @@ let plugins = [
     name: ['vendor', 'manifest'],
     minChunks: Infinity
   }),
+  //new webpack.NamedModulesPlugin(),  
   new webpack.HashedModuleIdsPlugin(),
+  new webpack.NamedChunksPlugin(),
   new WebpackChunkHash(),
   new HtmlWebpackPlugin({
     title: 'webpack output by build type',

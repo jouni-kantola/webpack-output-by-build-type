@@ -1,7 +1,6 @@
 const path = require('path');
 
 const webpack = require('webpack');
-const WebpackChunkHash = require('webpack-chunk-hash');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InlineManifestPlugin = require('inline-manifest-webpack-plugin');
 
@@ -24,7 +23,6 @@ let plugins = [
   //new webpack.NamedModulesPlugin(),  
   new webpack.HashedModuleIdsPlugin(),
   new webpack.NamedChunksPlugin(),
-  new WebpackChunkHash(),
   new HtmlWebpackPlugin({
     title: 'webpack output by build type',
     template: './tmpl/index.ejs',

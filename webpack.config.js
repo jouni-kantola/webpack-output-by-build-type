@@ -2,7 +2,6 @@ const path = require('path');
 
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const InlineManifestPlugin = require('inline-manifest-webpack-plugin');
 
 const InlineChunkManifestHtmlWebpackPlugin = require('inline-chunk-manifest-html-webpack-plugin');
 
@@ -16,10 +15,10 @@ let plugins = [
     __DEV__: !isProduction,
     globalConfig: !isProduction ? JSON.stringify({ in: 'dev' }) : JSON.stringify({ in: 'prod' })
   }),
-  new webpack.optimize.CommonsChunkPlugin({
-    name: ['vendor', 'manifest'],
-    minChunks: Infinity
-  }),
+  // new webpack.optimize.CommonsChunkPlugin({
+  //   name: ['vendor', 'manifest'],
+  //   minChunks: Infinity
+  // }),
   //new webpack.NamedModulesPlugin(),  
   new webpack.HashedModuleIdsPlugin(),
   new webpack.NamedChunksPlugin(),
@@ -28,16 +27,17 @@ let plugins = [
     template: './tmpl/index.ejs',
     inject: false
   }),
-  new InlineChunkManifestHtmlWebpackPlugin(),
-  new InlineManifestPlugin()
+  new InlineChunkManifestHtmlWebpackPlugin({
+    dropAsset: false
+  })
 ];
 
-if (isProduction) {
-  plugins.push(new webpack.optimize.UglifyJsPlugin({
-    //compress: { warnings: true },
-    sourceMap: true
-  }));
-}
+// if (isProduction) {
+//   plugins.push(new webpack.optimize.UglifyJsPlugin({
+//     //compress: { warnings: true },
+//     sourceMap: true
+//   }));
+// }
 
 module.exports = {
   entry: {
@@ -57,14 +57,14 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.js$/,
-        exclude: /(node_modules)/,
-        enforce: 'pre',
-        use: {
-          loader: 'eslint-loader'
-        }
-      },
+      // {
+      //   test: /\.js$/,
+      //   exclude: /(node_modules)/,
+      //   enforce: 'pre',
+      //   use: {
+      //     loader: 'eslint-loader'
+      //   }
+      // },
       {
         test: /\.js$/,
         exclude: /(node_modules)/,

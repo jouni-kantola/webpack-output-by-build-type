@@ -1,98 +1,115 @@
-/**
- * This dependency plugin is a fork of:
- * chunk-manifest-webpack-plugin (https://github.com/soundcloud/chunk-manifest-webpack-plugin)
- *
- * inline-chunk-manifest-html-webpack-plugin already enables inlining webpack's chunk manifest,
- * and therefor has been extracted.
- */
-
 "use strict";
 
-const RawSource = require("webpack-sources").RawSource;
+const ChunkManifestPlugin = require("./chunk-manifest-webpack-plugin");
 
-class ChunkManifestPlugin {
+class InlineChunkManifestHtmlWebpackPlugin {
   constructor(options) {
     options = options || {};
+
     this.manifestFilename = options.filename || "manifest.json";
     this.manifestVariable = options.manifestVariable || "webpackManifest";
+    this.chunkManifestVariable =
+      options.chunkManifestVariable || "webpackChunkManifest";
+    this.dropAsset = options.dropAsset || false;
+
+    if (
+      options.extractManifest != null &&
+      typeof options.extractManifest !== "boolean"
+    ) {
+      throw new TypeError("Extract manifest must be boolean");
+    }
+
+    this.extractManifest =
+      options.extractManifest != null ? options.extractManifest : true;
+
+    const manifestPlugins = options.manifestPlugins;
+
+    if (manifestPlugins && !Array.isArray(manifestPlugins)) {
+      throw new TypeError(
+        "Overriden manifest plugin(s) must be specified as array; [new Plugin1(), new Plugin1(), ...]"
+      );
+    }
+
+    const defaultManifestPlugins = [
+      new ChunkManifestPlugin({
+        filename: this.manifestFilename,
+        manifestVariable: this.manifestVariable
+      })
+    ];
+
+    this.plugins =
+      manifestPlugins && manifestPlugins.length
+        ? manifestPlugins
+        : defaultManifestPlugins;
   }
 
   apply(compiler) {
+    this.applyDependencyPlugins(compiler);
+
     const manifestFilename = this.manifestFilename;
     const manifestVariable = this.manifestVariable;
-    let chunkFilename;
+    const chunkManifestVariable = this.chunkManifestVariable;
+    const dropAsset = this.dropAsset;
 
-    compiler.hooks.thisCompilation.tap("ChunkManifestPlugin", compilation => {
-      const mainTemplate = compilation.mainTemplate;
-      mainTemplate.hooks.requireEnsure.tap("ChunkManifestPlugin", (
-        source,
-        chunk,
-        hash
-        /*, chunkIdVariableName */
-      ) => {
-        chunkFilename = compilation.outputOptions.chunkFilename;
+    compiler.hooks.emit.tapAsync(
+      "InlineChunkManifestHtmlWebpackPlugin",
+      (compilation, callback) => {
+        if (dropAsset) {
+          delete compilation.assets[manifestFilename];
+        }
 
-        if (chunkFilename) {
-          const chunkManifest = [chunk].reduce(function registerChunk(
-            manifest,
-            c
-          ) {
-            if (c.id in manifest) return manifest;
+        callback();
+      }
+    );
 
-            if (c.hasRuntime()) {
-              manifest[c.id] = undefined;
-            } else {
-              const assetFilename = mainTemplate.getAssetPath(chunkFilename, {
-                hash: hash,
-                chunk: c
-              });
+    compiler.hooks.compilation.tap(
+      "InlineChunkManifestHtmlWebpackPlugin",
+      compilation => {
+        compilation.hooks.htmlWebpackPluginAlterAssetTags.tapAsync(
+          "InlineChunkManifestHtmlWebpackPlugin",
+          (htmlPluginData, callback) => {
+            const asset = compilation.assets[manifestFilename];
 
-              manifest[c.id] = assetFilename;
+            if (asset) {
+              const newTag = {
+                tagName: "script",
+                closeTag: true,
+                attributes: {
+                  type: "text/javascript"
+                },
+                innerHTML: `window.${manifestVariable}=${asset.source()}`
+              };
+
+              htmlPluginData.head.unshift(newTag);
             }
 
-            const cGroups = Array.from(c.groupsIterable);
-            const cGroupsChildren = cGroups.map(group => group.chunks);
-            const unsortedChunks = cGroupsChildren.reduce(
-              (chunksArray, childrens) => chunksArray.concat(childrens),
-              []
-            );
-
-            const chunks = Array.from(new Set(unsortedChunks));
-
-            return chunks.reduce(registerChunk, manifest);
-          },
-          {});
-
-          compilation.outputOptions.chunkFilename = "__CHUNK_MANIFEST__";
-
-          compilation.assets[manifestFilename] = new RawSource(
-            JSON.stringify(chunkManifest)
-          );
-        }
-
-        return source;
-      });
-    });
-
-    compiler.hooks.compilation.tap("ChunkManifestPlugin", compilation => {
-      const mainTemplate = compilation.mainTemplate;
-      mainTemplate.hooks.requireEnsure.tap(
-        "ChunkManifestPlugin",
-        (source, chunk, hash, chunkIdVariableName) => {
-          if (chunkFilename) {
-            compilation.outputOptions.chunkFilename = chunkFilename;
+            callback(null, htmlPluginData);
           }
+        );
 
-          const updatedSource = source.replace(
-            /"__CHUNK_MANIFEST__"/,
-            `window["${manifestVariable}"][${chunkIdVariableName}]`
-          );
+        compilation.hooks.htmlWebpackPluginBeforeHtmlGeneration.tapAsync(
+          "InlineChunkManifestHtmlWebpackPlugin",
+          (htmlPluginData, callback) => {
+            const asset = compilation.assets[manifestFilename];
 
-          return updatedSource;
-        }
-      );
-    });
+            if (asset) {
+              htmlPluginData.assets[
+                chunkManifestVariable
+              ] = `<script type="text/javascript">window.${manifestVariable}=${asset.source()}</script>`;
+            }
+
+            callback(null, htmlPluginData);
+          }
+        );
+      }
+    );
+  }
+
+  applyDependencyPlugins(compiler) {
+    if (this.extractManifest) {
+      this.plugins.forEach(plugin => plugin.apply.call(plugin, compiler));
+    }
   }
 }
 
-module.exports = ChunkManifestPlugin;
+module.exports = InlineChunkManifestHtmlWebpackPlugin;

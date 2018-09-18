@@ -3,7 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const InlineChunkManifestHtmlWebpackPlugin = require('inline-chunk-manifest-html-webpack-plugin');
+const InlineChunkManifestHtmlWebpackPlugin = require('./inline-chunk-manifest-html-webpack-plugin');
 
 const buildType = require('./build-type');
 const isProduction = buildType.PRODUCTION;
